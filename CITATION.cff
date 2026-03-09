@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+title: >-
+  EpiRank: Modeling Bidirectional Disease Spread in
+  Asymmetric Commuting Networks
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Chung-Yuan
+    family-names: Huang
+    affiliation: >-
+      Department of Computer Science and Information
+      Engineering, Chang Gung University, Taiwan
+    email: gscott@mail.cgu.edu.tw
+repository-code: 'https://github.com/canslab1/EpiRank'
+url: 'https://github.com/canslab1/EpiRank'
+abstract: >-
+  A desktop application implementing the EpiRank algorithm
+  for epidemic risk analysis across Taiwan's 353 townships
+  based on asymmetric commuting networks. The algorithm
+  models bidirectional disease spread along daily commuting
+  flows using a modified PageRank approach.
+keywords:
+  - epidemic
+  - commuting network
+  - PageRank
+  - public health
+  - spatial analysis
+  - network science
+license: MIT
+version: 2.0.0
+date-released: '2025-01-01'
+preferred-citation:
+  type: article
+  authors:
+    - given-names: Chung-Yuan
+      family-names: Huang
+    - given-names: Wei-Chien-Benny
+      family-names: Chin
+    - given-names: Tzai-Hung
+      family-names: Wen
+    - given-names: Yu-Hsiang
+      family-names: Fu
+    - given-names: Yu-Shiuan
+      family-names: Tsai
+  title: >-
+    EpiRank: Modeling Bidirectional Disease Spread in
+    Asymmetric Commuting Networks
+  journal: Scientific Reports
+  year: 2019
+  volume: '9'
+  pages: '5415'
+  doi: 10.1038/s41598-019-41719-8
