@@ -196,9 +196,11 @@ Sheet: `2003` · 353 rows. Used for Greater Taipei (大台北都會區, 48 towns
 | B | `town` | Township name |
 | C | `SUM` | Total reported SARS cases (2003) |
 
-## Reference
+## References
 
-Chung-Yuan Huang, Tzai-Hung Wen, and Chi-Ting Tsai, "EpiRank: Modeling Bidirectional Disease Spread in Asymmetric Commuting Networks," *Journal of Biological Systems*, Vol. 22, No. 3, pp. 391–413, 2014.
+1. Huang, C.-Y., Chin, W. C. B., Wen, T.-H., Fu, Y.-H., & Tsai, Y.-S. (2019). EpiRank: Modeling Bidirectional Disease Spread in Asymmetric Commuting Networks. *Scientific Reports*, 9, 5415. https://doi.org/10.1038/s41598-019-41719-8
+
+2. Huang, C.-Y., Wen, T.-H., & Tsai, Y.-S. (2014). EpiRank: Modeling Bidirectional Disease Spread in Asymmetric Commuting Networks. *Journal of Biological Systems*, 22(3), 391–413.
 
 ## License
 
