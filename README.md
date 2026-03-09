@@ -10,56 +10,6 @@ Epidemic spread is not random — it flows along the daily commuting paths of mi
 
 Using only a single commuting OD matrix, EpiRank can predict the spatial distribution of three different diseases (Influenza, Enterovirus, SARS) — demonstrating that the commuting structure itself is the fundamental driver of epidemic risk.
 
-## Algorithm
-
-### Three-Stage Pipeline
-
-**Stage 1 — Network Construction**
-Build a 353-node directed graph from the census commuting OD (origin–destination) matrix. The network is directed, weighted, and asymmetric — commuting from A→B does not imply equal flow B→A. Self-loops represent local commuters (~84% of all commuters).
-
-**Stage 2 — Matrix Normalisation**
-Column-normalise the raw OD matrix into two stochastic matrices, each capturing a different direction of disease transmission:
-
-- **W** = col-normalise(OD) → backward (evening) direction: models risk flowing from workplaces back to residences
-- **Wᵀ** = col-normalise(ODᵀ) → forward (morning) direction: models risk flowing from residences to workplaces
-
-**Stage 3 — Iterative Convergence**
-Starting from a uniform distribution, repeatedly apply the EpiRank formula until the risk vector stabilises:
-
-```
-ER(t+1) = (1 − d) · (1/N) + d · [daytime · Wᵀ · ER(t) + (1 − daytime) · W · ER(t)]
-```
-
-| Term | Interpretation |
-|------|----------------|
-| `(1 − d) · (1/N)` | **Teleportation**: with probability (1−d), a pathogen arrives from an external source (e.g. international travel) regardless of the commuting network. Prevents isolated areas from having zero risk. |
-| `d · daytime · Wᵀ · ER` | **Forward (morning) contribution**: commuters arrive at workplaces carrying risk from their home townships. High-risk townships that send many workers raise the risk of the destination (pull effect). |
-| `d · (1−daytime) · W · ER` | **Backward (evening) contribution**: commuters return to residences carrying risk from their workplaces. High-risk workplaces push disease back to the bedroom suburbs (push effect). |
-
-### Convergence Guarantee
-
-Convergence is guaranteed by the Perron–Frobenius theorem. The iteration matrix M = (1−d)·E + d·P is a strictly positive column-stochastic matrix (since (1−d)/N > 0 fills all zero entries), which is irreducible and aperiodic. Therefore M has a unique dominant eigenvalue λ₁ = 1 and all other |λᵢ| < 1, ensuring power iteration converges to the unique stationary distribution from any initial vector. The convergence rate is geometric: ‖ER(t) − ER*‖ ≤ dᵗ · ‖ER(0) − ER*‖. Typically converges within 50–200 iterations for d = 0.95.
-
-### Classification: Head/Tail Breaks
-
-After computing continuous EpiRank scores, the program classifies townships into four discrete risk levels using the **head/tail breaks** method (Jiang, 2013) — specifically designed for heavy-tailed distributions where most values are low and a few are extremely high:
-
-```
-Round 1: all 353 townships
- ├─ tail (≤ mean₁): ~239 townships → NC  (non-core)
- └─ head (> mean₁): ~114 townships
-     Round 2:
-     ├─ tail (≤ mean₂): ~67 townships → C-III
-     └─ head (> mean₂): ~47 townships
-         Round 3:
-         ├─ tail (≤ mean₃): ~31 townships → C-II
-         └─ head (> mean₃): ~16 townships → C-I  (highest risk)
-```
-
-### Comparison with Other Indices
-
-The program also computes **PageRank** and **HITS** (Hub/Authority) for comparison against EpiRank, evaluating them using Pearson/Spearman correlation, recall, and precision against actual disease data.
-
 ## Features
 
 The GUI provides 14 interactive tabs reproducing all key figures and tables from the paper:
@@ -93,19 +43,25 @@ The program automatically saves three output files after each computation:
 
 Individual charts can also be exported as PNG, PDF, or SVG via the menu.
 
-## Requirements
-
-- Python 3.10+
-- PySide6
-- NumPy, SciPy, NetworkX, Matplotlib, openpyxl
-
 ## Installation
+
+**Requirements:** Python 3.10+
 
 ```bash
 git clone https://github.com/canslab1/EpiRank.git
 cd EpiRank
 pip install -r requirements.txt
 ```
+
+### Dependencies
+
+| Package | Purpose |
+|---------|---------|
+| PySide6 | Qt-based GUI |
+| NumPy / SciPy | Numerical computing |
+| NetworkX | Network analysis |
+| Matplotlib | Visualization |
+| openpyxl | Excel output |
 
 ## Usage
 
@@ -195,6 +151,74 @@ Sheet: `2003` · 353 rows. Used for Greater Taipei (大台北都會區, 48 towns
 | A | `county` | County name |
 | B | `town` | Township name |
 | C | `SUM` | Total reported SARS cases (2003) |
+
+## Algorithm
+
+### Three-Stage Pipeline
+
+**Stage 1 — Network Construction**
+Build a 353-node directed graph from the census commuting OD (origin–destination) matrix. The network is directed, weighted, and asymmetric — commuting from A→B does not imply equal flow B→A. Self-loops represent local commuters (~84% of all commuters).
+
+**Stage 2 — Matrix Normalisation**
+Column-normalise the raw OD matrix into two stochastic matrices, each capturing a different direction of disease transmission:
+
+- **W** = col-normalise(OD) → backward (evening) direction: models risk flowing from workplaces back to residences
+- **Wᵀ** = col-normalise(ODᵀ) → forward (morning) direction: models risk flowing from residences to workplaces
+
+**Stage 3 — Iterative Convergence**
+Starting from a uniform distribution, repeatedly apply the EpiRank formula until the risk vector stabilises:
+
+```
+ER(t+1) = (1 − d) · (1/N) + d · [daytime · Wᵀ · ER(t) + (1 − daytime) · W · ER(t)]
+```
+
+| Term | Interpretation |
+|------|----------------|
+| `(1 − d) · (1/N)` | **Teleportation**: with probability (1−d), a pathogen arrives from an external source (e.g. international travel) regardless of the commuting network. Prevents isolated areas from having zero risk. |
+| `d · daytime · Wᵀ · ER` | **Forward (morning) contribution**: commuters arrive at workplaces carrying risk from their home townships. High-risk townships that send many workers raise the risk of the destination (pull effect). |
+| `d · (1−daytime) · W · ER` | **Backward (evening) contribution**: commuters return to residences carrying risk from their workplaces. High-risk workplaces push disease back to the bedroom suburbs (push effect). |
+
+### Convergence Guarantee
+
+Convergence is guaranteed by the Perron–Frobenius theorem. The iteration matrix M = (1−d)·E + d·P is a strictly positive column-stochastic matrix (since (1−d)/N > 0 fills all zero entries), which is irreducible and aperiodic. Therefore M has a unique dominant eigenvalue λ₁ = 1 and all other |λᵢ| < 1, ensuring power iteration converges to the unique stationary distribution from any initial vector. The convergence rate is geometric: ‖ER(t) − ER*‖ ≤ dᵗ · ‖ER(0) − ER*‖. Typically converges within 50–200 iterations for d = 0.95.
+
+### Classification: Head/Tail Breaks
+
+After computing continuous EpiRank scores, the program classifies townships into four discrete risk levels using the **head/tail breaks** method (Jiang, 2013) — specifically designed for heavy-tailed distributions where most values are low and a few are extremely high:
+
+```
+Round 1: all 353 townships
+ ├─ tail (≤ mean₁): ~239 townships → NC  (non-core)
+ └─ head (> mean₁): ~114 townships
+     Round 2:
+     ├─ tail (≤ mean₂): ~67 townships → C-III
+     └─ head (> mean₂): ~47 townships
+         Round 3:
+         ├─ tail (≤ mean₃): ~31 townships → C-II
+         └─ head (> mean₃): ~16 townships → C-I  (highest risk)
+```
+
+### Comparison with Other Indices
+
+The program also computes **PageRank** and **HITS** (Hub/Authority) for comparison against EpiRank, evaluating them using Pearson/Spearman correlation, recall, and precision against actual disease data.
+
+## Project Structure
+
+```
+EpiRank/
+├── EpiRank_GUI.py     # Main application (GUI + algorithm)
+├── requirements.txt   # Python dependencies
+├── bs.xlsx            # Township metadata (353 townships)
+├── cn.xlsx            # Commuting OD matrix (353×353)
+├── Flu.xlsx           # Influenza case data (2009)
+├── ev.xlsx            # Enterovirus case data (2000–2008)
+├── SARS.xlsx          # SARS case data (2003)
+└── LICENSE            # MIT License
+```
+
+## Authors
+
+- **Chung-Yuan Huang** (黃崇源) — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)
 
 ## References
 
