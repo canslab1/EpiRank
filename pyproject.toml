@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "epirank"
-version = "2.0"
+version = "2.0.0"
 description = "EpiRank — epidemic risk analysis across Taiwan's townships based on asymmetric commuting networks"
 readme = "README.md"
 license = {text = "MIT"}
