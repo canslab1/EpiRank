@@ -102,7 +102,7 @@ Individual charts can also be exported as PNG, PDF, or SVG via the menu.
 ## Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/EpiRank.git
+git clone https://github.com/canslab1/EpiRank.git
 cd EpiRank
 pip install -r requirements.txt
 ```
