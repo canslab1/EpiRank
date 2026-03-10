@@ -1,4 +1,4 @@
-# EpiRank GUI
+# EpiRank — Epidemic Risk Analysis via Asymmetric Commuting Networks
 
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
@@ -223,10 +223,18 @@ EpiRank/
 
 - **Chung-Yuan Huang** (黃崇源) — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)
 
+## Citation
+
+If you use this software in your research, please cite:
+
+> Huang, C.-Y., Chin, W. C. B., Wen, T.-H., Fu, Y.-H., & Tsai, Y.-S. (2019). EpiRank: Modeling Bidirectional Disease Spread in Asymmetric Commuting Networks. *Scientific Reports*, 9, 5415. https://doi.org/10.1038/s41598-019-41719-8
+
+See `CITATION.cff` for machine-readable citation metadata.
+
 ## References
 
 1. Huang, C.-Y., Chin, W. C. B., Wen, T.-H., Fu, Y.-H., & Tsai, Y.-S. (2019). EpiRank: Modeling Bidirectional Disease Spread in Asymmetric Commuting Networks. *Scientific Reports*, 9, 5415. https://doi.org/10.1038/s41598-019-41719-8
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

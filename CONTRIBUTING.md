@@ -53,6 +53,15 @@ python EpiRank_GUI.py  # Verify the GUI launches correctly
 - Keep functions focused and reasonably sized.
 - Document non-obvious algorithms with comments referencing the paper.
 
+## Project Architecture
+
+| Module | Responsibility |
+|--------|---------------|
+| `EpiRank_GUI.py` | Main application with PySide6 GUI and EpiRank algorithm |
+| `bs.xlsx` | Township metadata (353 townships) |
+| `cn.xlsx` | Commuting OD matrix (353×353) |
+| `Flu.xlsx`, `ev.xlsx`, `SARS.xlsx` | Disease case data for validation |
+
 ## Questions?
 
 Feel free to open an issue for any questions about the codebase or contribution process.
