@@ -1,0 +1,31 @@
+# EpiRank — Epidemic Risk Analysis via Asymmetric Commuting Networks
+
+> EpiRank is a desktop application implementing the EpiRank algorithm for epidemic risk analysis across Taiwan's 353 townships based on asymmetric commuting networks. It computes risk scores using a modified PageRank algorithm on commuting flow data.
+
+## Author
+
+- Name: Chung-Yuan Huang (黃崇源)
+- Title: Full Professor, Department of CSIE, Chang Gung University
+- Email: gscott@mail.cgu.edu.tw
+- ORCID: https://orcid.org/0000-0002-8680-6755
+- Google Scholar: https://scholar.google.com/citations?user=0klfzfAAAAAJ&hl=en
+- Homepage: https://canslab1.github.io/
+
+## Software
+
+- Name: EpiRank
+- Language: Python
+- License: MIT
+- GitHub: https://github.com/canslab1/EpiRank
+- README: https://canslab1.github.io/EpiRank/
+
+## Publication
+
+Huang, C.-Y., Chin, W.C.B., Wen, T.-H., Fu, Y.-S., & Tsai, Y.-S. (2019). EpiRank algorithm and the bio-network for characterizing differential prefecture vulnerability of hand, foot and mouth disease in Japan. Scientific Reports, 9(1), 19237.
+DOI: https://doi.org/10.1038/s41598-019-55757-1
+
+## Lab
+
+- CANS Lab (Complex Adaptive Networks and Systems Laboratory)
+- Chang Gung University, Department of CSIE
+- Website: https://canslab1.github.io/
