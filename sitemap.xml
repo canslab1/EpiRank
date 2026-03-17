@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://canslab1.github.io/EpiRank/</loc>
-    <lastmod>2026-03-16</lastmod>
+    <lastmod>2026-03-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://canslab1.github.io/images/software/epirank-commuter.png</image:loc>
+      <image:title>Taiwan commuter network visualization — EpiRank by Prof. Chung-Yuan Huang (黃崇源教授)</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://canslab1.github.io/images/software/epirank-vs-disease.png</image:loc>
+      <image:title>EpiRank vs disease spread comparison — EpiRank by Prof. Chung-Yuan Huang (黃崇源教授)</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://canslab1.github.io/images/software/epirank-sensitivity.png</image:loc>
+      <image:title>EpiRank sensitivity analysis — EpiRank by Prof. Chung-Yuan Huang (黃崇源教授)</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://canslab1.github.io/images/software/epirank-paper.png</image:loc>
+      <image:title>EpiRank research paper figure — EpiRank by Prof. Chung-Yuan Huang (黃崇源教授)</image:title>
+    </image:image>
   </url>
 </urlset>
