@@ -132,7 +132,491 @@
     <main class="content-wrapper">
         <article class="markdown-body" id="content" aria-live="polite">
             <h1>EpiRank — Epidemic Risk Analysis via Asymmetric Commuting Networks</h1>
-            <div class="loading">Loading README...</div>
+            <!-- PRERENDER-START -->
+<p><img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-blue">
+<img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green">
+<a href="https://canslab1.github.io/"><img alt="CANS Lab" src="https://img.shields.io/badge/CANS_Lab-Homepage-orange"></a></p>
+<p>A desktop application implementing the <strong>EpiRank</strong> algorithm for epidemic risk analysis across Taiwan's 353 townships based on asymmetric commuting networks.</p>
+<h2 id="overview">Overview</h2>
+<p>Epidemic spread is not random — it flows along the daily commuting paths of millions of people. Every morning, commuters move from home (origin) to work (destination); every evening, they return. This bidirectional human flow is the highway of disease transmission.</p>
+<p><strong>EpiRank</strong> borrows from Google's PageRank philosophy: a webpage's importance depends on "who links to it"; analogously, a township's epidemic risk depends on "who commutes here and who returns home from here." But EpiRank goes further — it simultaneously models the <em>forward trip</em> (morning: population spreads from home to work) and the <em>return trip</em> (evening: population flows back from work to home), with the <code>daytime</code> parameter controlling the balance between the two.</p>
+<p>Using only a single commuting OD matrix, EpiRank can predict the spatial distribution of three different diseases (Influenza, Enterovirus, SARS) — demonstrating that the commuting structure itself is the fundamental driver of epidemic risk.</p>
+<h2 id="features">Features</h2>
+<p>The GUI provides 14 interactive tabs reproducing all key figures and tables from the paper:</p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>Content</th>
+<th>Paper Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Results Table</td>
+<td>Ranked EpiRank scores for all 353 townships</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Network Map</td>
+<td>Commuting network visualisation</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Core Classification</td>
+<td>Table 1 — head/tail break counts by method</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Correlations</td>
+<td>Table 2 — Pearson / Spearman / Recall / Precision</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Commuter Flow</td>
+<td>Figure 2 — 7 sub-plots: map, scatter, histogram</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Frequency Distributions</td>
+<td>Figure 3 — disease frequency + log ratio</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Frequency Distribution</td>
+<td>Figure 6 — EpiRank frequency by daytime</td>
+</tr>
+<tr>
+<td>7</td>
+<td>EpiRank vs Disease</td>
+<td>Figure 9 — stacked percentage bars</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Index Comparison</td>
+<td>Figure 10 — EpiRank vs PageRank vs HITS</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Disease Map</td>
+<td>Figure 4 — spatial disease severity</td>
+</tr>
+<tr>
+<td>10</td>
+<td>EpiRank Map</td>
+<td>Figure 7 — spatial EpiRank levels</td>
+</tr>
+<tr>
+<td>11</td>
+<td>EpiRank vs Disease Map</td>
+<td>Figure 8 — overlay: prediction vs actual</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Log</td>
+<td>Computation log</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Sensitivity Analysis</td>
+<td>Figure 11 — daytime × d heatmaps</td>
+</tr>
+</tbody>
+</table>
+<h3 id="output-files">Output Files</h3>
+<p>The program automatically saves three output files after each computation:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ERA_result_d_{d}_daytime_{dt}_loops_{n}.xlsx</code></td>
+<td>Results table with ranked EpiRank scores</td>
+</tr>
+<tr>
+<td><code>ERA_result_d_{d}_daytime_{dt}_loops_{n}.png</code></td>
+<td>Network map visualisation (450 dpi)</td>
+</tr>
+<tr>
+<td><code>ERA_result.net</code></td>
+<td>Pajek format network file</td>
+</tr>
+</tbody>
+</table>
+<p>Individual charts can also be exported as PNG, PDF, or SVG via the menu.</p>
+<h2 id="installation">Installation</h2>
+<p><strong>Requirements:</strong> Python 3.10+</p>
+<pre><code class="language-bash">git clone https://github.com/canslab1/EpiRank.git
+cd EpiRank
+pip install -r requirements.txt
+</code></pre>
+<h3 id="dependencies">Dependencies</h3>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PySide6</td>
+<td>Qt-based GUI</td>
+</tr>
+<tr>
+<td>NumPy / SciPy</td>
+<td>Numerical computing</td>
+</tr>
+<tr>
+<td>NetworkX</td>
+<td>Network analysis</td>
+</tr>
+<tr>
+<td>Matplotlib</td>
+<td>Visualization</td>
+</tr>
+<tr>
+<td>openpyxl</td>
+<td>Excel output</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-bash">python EpiRank_GUI.py
+</code></pre>
+<p>The program loads the five bundled data files automatically from the same directory.</p>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Damping factor (d)</td>
+<td>0.0–1.0</td>
+<td>0.95</td>
+<td>Higher → network structure dominates; lower → result approaches uniform distribution</td>
+</tr>
+<tr>
+<td>Daytime weight</td>
+<td>0.0–1.0</td>
+<td>0.5</td>
+<td>0.0 = backward only (evening return); 0.5 = bidirectional; 1.0 = forward only (morning commute)</td>
+</tr>
+<tr>
+<td>Max iterations</td>
+<td>1–5000</td>
+<td>1000</td>
+<td>Convergence limit (typically converges in 50–200 iterations)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-files">Data Files</h3>
+<h4 id="bsxlsx-township-metadata"><code>bs.xlsx</code> — Township Metadata</h4>
+<p>Sheet: <code>town_data</code> · 409 sub-township rows aggregated into 353 unique townships.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>db_ID</code></td>
+<td>Unique township ID (0–352)</td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>county</code></td>
+<td>County name (縣市)</td>
+</tr>
+<tr>
+<td>C</td>
+<td><code>town</code></td>
+<td>Township name (鄉鎮市區)</td>
+</tr>
+<tr>
+<td>D</td>
+<td><code>area</code></td>
+<td>Area label</td>
+</tr>
+<tr>
+<td>E–F</td>
+<td><code>pos.x</code>, <code>pos.y</code></td>
+<td>Map coordinates (TWD97)</td>
+</tr>
+<tr>
+<td>G–H</td>
+<td><code>pos2.x</code>, <code>pos2.y</code></td>
+<td>Adjusted map coordinates</td>
+</tr>
+<tr>
+<td>I</td>
+<td><code>population</code></td>
+<td>Total population</td>
+</tr>
+<tr>
+<td>J</td>
+<td><code>sub_percentage</code></td>
+<td>Sub-township ratio (for aggregation)</td>
+</tr>
+<tr>
+<td>K</td>
+<td><code>sub_area km2</code></td>
+<td>Sub-township area (km²)</td>
+</tr>
+<tr>
+<td>L</td>
+<td><code>area_km2</code></td>
+<td>Township area (km²)</td>
+</tr>
+<tr>
+<td>M</td>
+<td><code>pop_den</code></td>
+<td>Population density (people/km²)</td>
+</tr>
+<tr>
+<td>N</td>
+<td><code>pop_den (normal)</code></td>
+<td>Normalised population density (0–1)</td>
+</tr>
+<tr>
+<td>O</td>
+<td><code>age 0-14</code></td>
+<td>Age group 0–14 (%)</td>
+</tr>
+<tr>
+<td>P</td>
+<td><code>age 15-64</code></td>
+<td>Age group 15–64 (%)</td>
+</tr>
+<tr>
+<td>Q</td>
+<td><code>age 65+</code></td>
+<td>Age group 65+ (%)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cnxlsx-commuting-network"><code>cn.xlsx</code> — Commuting Network</h4>
+<p>Sheet: <code>353C</code> · 353×353 origin–destination matrix (from the 2000 Taiwan population census).</p>
+<table>
+<thead>
+<tr>
+<th>Row</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Sequence number (0–352) for each township</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Post code (郵遞區號)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>db_ID</code> matching <code>bs.xlsx</code></td>
+</tr>
+<tr>
+<td>4–…</td>
+<td>Header rows; data starts at row 6</td>
+</tr>
+</tbody>
+</table>
+<p>Cell (i, j) = number of commuters living in township i who work in township j.</p>
+<p>Key properties:
+- <strong>Directed</strong>: commuting A→B does not imply equal flow B→A
+- <strong>Weighted</strong>: edge weight = commuter count
+- <strong>Self-loops</strong>: OD[i][i] = local commuters living and working in the same township
+- <strong>Asymmetric</strong>: a bedroom suburb may send 50,000 commuters to the city but receive only 2,000</p>
+<h4 id="fluxlsx-influenza-cases"><code>Flu.xlsx</code> — Influenza Cases</h4>
+<p>Sheet: <code>2009</code> · 353 rows. Source: Taiwan CDC (疾管署) surveillance data.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>county</code></td>
+<td>County name</td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>town</code></td>
+<td>Township name</td>
+</tr>
+<tr>
+<td>C</td>
+<td><code>SUM</code></td>
+<td>Total reported influenza cases (2009)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="evxlsx-enterovirus-cases"><code>ev.xlsx</code> — Enterovirus Cases</h4>
+<p>Sheet: <code>2000_2008</code> · 353 rows.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>county</code></td>
+<td>County name</td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>town</code></td>
+<td>Township name</td>
+</tr>
+<tr>
+<td>C</td>
+<td><code>AVERAGE</code></td>
+<td>Average yearly enterovirus cases (2000–2008)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="sarsxlsx-sars-cases"><code>SARS.xlsx</code> — SARS Cases</h4>
+<p>Sheet: <code>2003</code> · 353 rows. Used for Greater Taipei (大台北都會區, 48 townships) correlation analysis.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>county</code></td>
+<td>County name</td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>town</code></td>
+<td>Township name</td>
+</tr>
+<tr>
+<td>C</td>
+<td><code>SUM</code></td>
+<td>Total reported SARS cases (2003)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="algorithm">Algorithm</h2>
+<h3 id="three-stage-pipeline">Three-Stage Pipeline</h3>
+<p><strong>Stage 1 — Network Construction</strong>
+Build a 353-node directed graph from the census commuting OD (origin–destination) matrix. The network is directed, weighted, and asymmetric — commuting from A→B does not imply equal flow B→A. Self-loops represent local commuters (~84% of all commuters).</p>
+<p><strong>Stage 2 — Matrix Normalisation</strong>
+Column-normalise the raw OD matrix into two stochastic matrices, each capturing a different direction of disease transmission:</p>
+<ul>
+<li><strong>W</strong> = col-normalise(OD) → backward (evening) direction: models risk flowing from workplaces back to residences</li>
+<li><strong>Wᵀ</strong> = col-normalise(ODᵀ) → forward (morning) direction: models risk flowing from residences to workplaces</li>
+</ul>
+<p><strong>Stage 3 — Iterative Convergence</strong>
+Starting from a uniform distribution, repeatedly apply the EpiRank formula until the risk vector stabilises:</p>
+<pre><code>ER(t+1) = (1 − d) · (1/N) + d · [daytime · Wᵀ · ER(t) + (1 − daytime) · W · ER(t)]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(1 − d) · (1/N)</code></td>
+<td><strong>Teleportation</strong>: with probability (1−d), a pathogen arrives from an external source (e.g. international travel) regardless of the commuting network. Prevents isolated areas from having zero risk.</td>
+</tr>
+<tr>
+<td><code>d · daytime · Wᵀ · ER</code></td>
+<td><strong>Forward (morning) contribution</strong>: commuters arrive at workplaces carrying risk from their home townships. High-risk townships that send many workers raise the risk of the destination (pull effect).</td>
+</tr>
+<tr>
+<td><code>d · (1−daytime) · W · ER</code></td>
+<td><strong>Backward (evening) contribution</strong>: commuters return to residences carrying risk from their workplaces. High-risk workplaces push disease back to the bedroom suburbs (push effect).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="convergence-guarantee">Convergence Guarantee</h3>
+<p>Convergence is guaranteed by the Perron–Frobenius theorem. The iteration matrix M = (1−d)·E + d·P is a strictly positive column-stochastic matrix (since (1−d)/N &gt; 0 fills all zero entries), which is irreducible and aperiodic. Therefore M has a unique dominant eigenvalue λ₁ = 1 and all other |λᵢ| &lt; 1, ensuring power iteration converges to the unique stationary distribution from any initial vector. The convergence rate is geometric: ‖ER(t) − ER<em>‖ ≤ dᵗ · ‖ER(0) − ER</em>‖. Typically converges within 50–200 iterations for d = 0.95.</p>
+<h3 id="classification-headtail-breaks">Classification: Head/Tail Breaks</h3>
+<p>After computing continuous EpiRank scores, the program classifies townships into four discrete risk levels using the <strong>head/tail breaks</strong> method (Jiang, 2013) — specifically designed for heavy-tailed distributions where most values are low and a few are extremely high:</p>
+<pre><code>Round 1: all 353 townships
+ ├─ tail (≤ mean₁): ~239 townships → NC  (non-core)
+ └─ head (&gt; mean₁): ~114 townships
+     Round 2:
+     ├─ tail (≤ mean₂): ~67 townships → C-III
+     └─ head (&gt; mean₂): ~47 townships
+         Round 3:
+         ├─ tail (≤ mean₃): ~31 townships → C-II
+         └─ head (&gt; mean₃): ~16 townships → C-I  (highest risk)
+</code></pre>
+<h3 id="comparison-with-other-indices">Comparison with Other Indices</h3>
+<p>The program also computes <strong>PageRank</strong> and <strong>HITS</strong> (Hub/Authority) for comparison against EpiRank, evaluating them using Pearson/Spearman correlation, recall, and precision against actual disease data.</p>
+<h2 id="project-structure">Project Structure</h2>
+<pre><code>EpiRank/
+├── EpiRank_GUI.py     # Main application (GUI + algorithm)
+├── requirements.txt   # Python dependencies
+├── bs.xlsx            # Township metadata (353 townships)
+├── cn.xlsx            # Commuting OD matrix (353×353)
+├── Flu.xlsx           # Influenza case data (2009)
+├── ev.xlsx            # Enterovirus case data (2000–2008)
+├── SARS.xlsx          # SARS case data (2003)
+├── LICENSE            # MIT License
+├── CHANGELOG.md       # Version history
+├── CITATION.cff       # Citation metadata
+├── CONTRIBUTING.md    # Contribution guidelines
+├── pyproject.toml     # Python project configuration
+├── index.html         # GitHub Pages landing page
+├── 404.html           # Custom 404 error page
+├── sitemap.xml        # XML sitemap for search engines
+├── robots.txt         # Crawler directives
+└── llms.txt           # AI-readable project summary
+</code></pre>
+<h2 id="authors">Authors</h2>
+<ul>
+<li><strong>Chung-Yuan Huang</strong> (黃崇源) — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)</li>
+</ul>
+<h2 id="citation">Citation</h2>
+<p>If you use this software in your research, please cite:</p>
+<blockquote>
+<p>Huang, C.-Y., Chin, W. C. B., Wen, T.-H., Fu, Y.-H., &amp; Tsai, Y.-S. (2019). EpiRank: Modeling Bidirectional Disease Spread in Asymmetric Commuting Networks. <em>Scientific Reports</em>, 9, 5415. https://doi.org/10.1038/s41598-019-41719-8</p>
+</blockquote>
+<p>See <code>CITATION.cff</code> for machine-readable citation metadata.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>Huang, C.-Y., Chin, W. C. B., Wen, T.-H., Fu, Y.-H., &amp; Tsai, Y.-S. (2019). EpiRank: Modeling Bidirectional Disease Spread in Asymmetric Commuting Networks. <em>Scientific Reports</em>, 9, 5415. https://doi.org/10.1038/s41598-019-41719-8</li>
+</ol>
+<h2 id="license">License</h2>
+<p>This project is licensed under the MIT License. See <a href="LICENSE">LICENSE</a> for details.</p>
+<!-- PRERENDER-END -->
         </article>
     </main>
     <footer class="site-footer">
