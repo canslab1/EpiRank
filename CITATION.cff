@@ -9,6 +9,7 @@ type: software
 authors:
   - given-names: Chung-Yuan
     family-names: Huang
+    orcid: "https://orcid.org/0000-0002-8680-6755"
     affiliation: >-
       Department of Computer Science and Information
       Engineering, Chang Gung University, Taiwan
@@ -30,7 +31,7 @@ keywords:
   - network science
 license: MIT
 version: 2.0.0
-date-released: '2025-01-01'
+date-released: '2026-03-07'
 preferred-citation:
   type: article
   authors:

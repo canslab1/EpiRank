@@ -217,7 +217,16 @@ EpiRank/
 ├── Flu.xlsx           # Influenza case data (2009)
 ├── ev.xlsx            # Enterovirus case data (2000–2008)
 ├── SARS.xlsx          # SARS case data (2003)
-└── LICENSE            # MIT License
+├── LICENSE            # MIT License
+├── CHANGELOG.md       # Version history
+├── CITATION.cff       # Citation metadata
+├── CONTRIBUTING.md    # Contribution guidelines
+├── pyproject.toml     # Python project configuration
+├── index.html         # GitHub Pages landing page
+├── 404.html           # Custom 404 error page
+├── sitemap.xml        # XML sitemap for search engines
+├── robots.txt         # Crawler directives
+└── llms.txt           # AI-readable project summary
 ```
 
 ## Authors

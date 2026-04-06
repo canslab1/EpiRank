@@ -4,7 +4,7 @@ EpiRank GUI — Epidemic Risk Analysis System (PySide6)
 
 Implements the EpiRank algorithm described in:
     Chung-Yuan Huang et al., "EpiRank: Modeling Bidirectional Disease Spread
-    in Asymmetric Commuting Networks", 2014.
+    in Asymmetric Commuting Networks", 2019.
 
 The EpiRank model estimates the relative epidemic risk of 353 townships in
 Taiwan by combining a bidirectional commuting network with a PageRank-like
