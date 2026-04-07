@@ -41,3 +41,6 @@ ERA_result*.xlsx
 ERA_result*.xls
 ERA_result*.png
 ERA_result.net
+
+# Deleted files staging area
+deleted/
